@@ -19,7 +19,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export default function About() {
   return (
-    <div className="px-6 py-8 lg:px-10">
+    <div className="px-4 py-7 sm:px-6 lg:px-10">
       {/* 히어로 */}
       <div className="mx-auto mb-10 max-w-4xl">
         <span className="chip-award">◆ SK이노베이션 「AI 임팩트 솔루션」 공모전 출품작 · Track B × Energy</span>
@@ -54,6 +54,25 @@ export default function About() {
           </Card>
         </Section>
 
+        {/* 기대 임팩트 */}
+        <Section title="기대 임팩트">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { n: "100+", l: "조기 발견 위기 가구", s: "PoC 1년 목표" },
+              { n: "50%↓", l: "케이스 파악 시간", s: "수동 확인 대비" },
+              { n: "85%+", l: "고위험 탐지 재현율", s: "시나리오 검증 목표" },
+              { n: "4-layer", l: "다신호 결합", s: "전력·생활·안부·상담" },
+            ].map((k) => (
+              <Card key={k.l} className="card-hover p-5 text-center">
+                <div className="text-3xl font-extrabold text-brand">{k.n}</div>
+                <div className="mt-1 text-sm font-semibold text-ink">{k.l}</div>
+                <div className="mt-0.5 text-xs text-muted">{k.s}</div>
+              </Card>
+            ))}
+          </div>
+          <p className="mt-3 text-center text-xs text-muted">※ 합성 데이터 기반 PoC 가설 목표치이며 실증으로 검증 예정입니다.</p>
+        </Section>
+
         {/* 4-layer 구조 */}
         <Section title="4-Layer AI 사회안전망 구조">
           <img src="/img/architecture.png" alt="AMI-Care+ 4-Layer 구조도" className="w-full rounded-2xl border border-line" />
@@ -81,6 +100,31 @@ export default function About() {
           <img src="/img/journey.png" alt="AMI-Care+ 사용자 여정" className="w-full rounded-2xl border border-line" />
         </Section>
 
+        {/* 한 사람의 이야기 */}
+        <Section title="한 사람의 이야기">
+          <Card className="p-6">
+            <div className="space-y-3 text-[15px] leading-relaxed text-ink2">
+              <p>
+                <b className="text-ink">오전 9시.</b> 독거 어르신 댁의 전력 사용량이 사흘째 평소의 10% 아래로 떨어졌습니다. AMI-Care+가
+                이상을 감지합니다.
+              </p>
+              <p>
+                <b className="text-ink">9시 5분.</b> AI가 음성 안부를 시도하지만 응답이 없습니다. 가스·수도 사용도 멈춘 상태 — 위험점수가
+                '위기'로 분류됩니다.
+              </p>
+              <p>
+                <b className="text-ink">9시 10분.</b> 복지 담당자 대시보드 최상단에 해당 가구가 표시되고, AI 케이스 요약과 권장조치(전화·방문)가
+                함께 제시됩니다.
+              </p>
+              <p>
+                <b className="text-ink">9시 30분.</b> 마을 코디네이터가 방문해 위급 상황을 발견하고 119로 연결합니다.{" "}
+                <b className="text-brand">감지에서 대응까지 30분.</b>
+              </p>
+            </div>
+            <p className="mt-4 text-xs text-muted">※ 서비스 작동 방식을 보여주는 가상 시나리오입니다.</p>
+          </Card>
+        </Section>
+
         {/* PoC 로드맵 */}
         <Section title="2026년 PoC 실행 로드맵">
           <img src="/img/roadmap.png" alt="AMI-Care+ PoC 로드맵" className="w-full rounded-2xl border border-line" />
@@ -88,6 +132,26 @@ export default function About() {
             7월 킥오프·요구사항 확정 → 8월 합성 데이터셋·MVP → 9월 AI 안부·케이스 요약 → 10월 사용자 테스트 → 11월 데모데이·임팩트
             리포트. 초기 PoC는 협력기관이 없어도 데모 가능한 구조이며, 선정 후 멘토링으로 현장성을 보강합니다.
           </p>
+        </Section>
+
+        {/* 협력 생태계 */}
+        <Section title="협력 생태계">
+          <Card className="p-6">
+            <div className="grid gap-5 text-sm sm:grid-cols-3">
+              <div>
+                <div className="font-bold text-brand">데이터 · 인프라</div>
+                <p className="mt-1 leading-relaxed text-muted">한국전력 AMI, 지자체 복지 데이터, 통신·도시가스 — 동의·협약 기반으로 단계적 확장</p>
+              </div>
+              <div>
+                <div className="font-bold text-brand">운영 · 전달</div>
+                <p className="mt-1 leading-relaxed text-muted">지자체 찾아가는 보건복지팀, 사회복지관, 마을 코디네이터, 상담기관(SafeNet1366)</p>
+              </div>
+              <div>
+                <div className="font-bold text-brand">지원 · 확산</div>
+                <p className="mt-1 leading-relaxed text-muted">SK이노베이션·큐네스티 멘토링·PoC, 사회복지공동모금회, 중앙사회서비스원</p>
+              </div>
+            </div>
+          </Card>
         </Section>
 
         {/* 정직성/개인정보 */}

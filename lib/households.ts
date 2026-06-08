@@ -30,7 +30,8 @@ function hoursAgoLabel(hr: number) {
   return `06-${dd} ${hh}:00`.replace("06-", `${mm}-`);
 }
 
-const DONGS = ["햇살동", "나래동", "미리내동", "한울동", "푸른동", "아람동", "도담동"];
+// 예시 지역(합성) — 특정 도시를 지정하지 않는 일반 행정동명
+const DONGS = ["중앙동", "신흥동", "한솔동", "행복동", "평화동", "삼성동", "수정동"];
 const dongCenter: Record<string, [number, number]> = {};
 DONGS.forEach((d, i) => {
   dongCenter[d] = [14 + (i % 4) * 24 + rint(-3, 3), 18 + Math.floor(i / 4) * 30 + rint(-3, 3)];
@@ -192,6 +193,7 @@ function build(): Household[] {
       riskScore: 0,
       grade: g,
       trend: trendFor(g),
+      energyPoverty: false,
       power: genPower(g),
       life: genLife(g),
       checkin: genCheckin(g),
@@ -200,6 +202,10 @@ function build(): Household[] {
     const r = computeRisk(h);
     h.riskScore = r.score;
     h.grade = r.grade;
+    h.energyPoverty =
+      type.includes("에너지빈곤") ||
+      h.life.gas.status === "이상" ||
+      (h.grade !== "정상" && h.power.anomalies.some((a) => a.includes("난방")));
     return h;
   });
   raw.sort((a, b) => b.riskScore - a.riskScore);

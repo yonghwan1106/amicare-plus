@@ -7,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   ReferenceLine,
+  ReferenceArea,
   CartesianGrid,
 } from "recharts";
 import type { PowerPoint } from "@/lib/types";
@@ -23,6 +24,14 @@ export function PowerTrend({
   color?: string;
   height?: number;
 }) {
+  // AI 이상탐지: 최근 구간에서 평소(baseline) 절반 미만으로 떨어지는 첫 지점부터 이상 구간으로 표시
+  let anomalyStart = -1;
+  for (let i = Math.max(0, series.length - 12); i < series.length; i++) {
+    if (series[i].kwh < baseline * 0.45) {
+      anomalyStart = i;
+      break;
+    }
+  }
   return (
     <ResponsiveContainer width="100%" height={height}>
       <AreaChart data={series} margin={{ top: 12, right: 12, left: -16, bottom: 0 }}>
@@ -45,6 +54,17 @@ export function PowerTrend({
           contentStyle={{ borderRadius: 10, border: "1px solid #e4e9f0", fontSize: 12, boxShadow: "0 8px 24px -12px rgba(16,24,40,.3)" }}
           formatter={(v) => [`${v} kWh`, "사용량"]}
         />
+        {anomalyStart >= 0 && (
+          <ReferenceArea
+            x1={series[anomalyStart].d}
+            x2={series[series.length - 1].d}
+            fill="#dc2626"
+            fillOpacity={0.07}
+            stroke="#dc2626"
+            strokeOpacity={0.18}
+            label={{ value: "⚠ AI 이상 탐지", position: "insideTopRight", fontSize: 10, fill: "#dc2626" }}
+          />
+        )}
         <ReferenceLine
           y={baseline}
           stroke="#fb8c00"

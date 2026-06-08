@@ -24,7 +24,7 @@ const NAV = [
 export default function Nav() {
   const path = usePathname();
   return (
-    <aside className="sticky top-9 z-20 flex h-[calc(100vh-2.25rem)] w-60 shrink-0 flex-col border-r border-line bg-surface/85 backdrop-blur-sm">
+    <aside className="sticky top-9 z-20 hidden h-[calc(100vh-2.25rem)] w-60 shrink-0 flex-col border-r border-line bg-surface/85 backdrop-blur-sm lg:flex">
       {/* 로고 + 출품작 */}
       <div className="px-5 pb-4 pt-6">
         <div className="flex items-center gap-3">

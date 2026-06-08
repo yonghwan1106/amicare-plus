@@ -54,6 +54,9 @@ export async function POST(req: Request) {
   const h = getHousehold(id);
   if (!h) return NextResponse.json({ error: "not found" }, { status: 404 });
 
+  // 정상 가구는 LLM 호출 없이 규칙 요약으로 즉시 응답 (비용·지연 절감)
+  if (h.grade === "정상") return NextResponse.json(ruleSummary(h));
+
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return NextResponse.json(ruleSummary(h));
 

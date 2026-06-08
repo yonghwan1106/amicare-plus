@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { HOUSEHOLDS, KPI, PRIORITY } from "@/lib/households";
 import { GRADE_META, type Grade } from "@/lib/types";
@@ -20,14 +20,20 @@ function Sig({ color, label, text }: { color: string; label: string; text: strin
   );
 }
 
+const ENERGY_COUNT = HOUSEHOLDS.filter((h) => h.energyPoverty).length;
+
 export default function Dashboard() {
   const [selId, setSelId] = useState(PRIORITY[0]?.id ?? HOUSEHOLDS[0].id);
+  const [now, setNow] = useState("");
+  useEffect(() => {
+    setNow(new Date().toLocaleString("ko-KR", { dateStyle: "medium", timeStyle: "short" }));
+  }, []);
   const sel = HOUSEHOLDS.find((h) => h.id === selId) ?? HOUSEHOLDS[0];
   const actions = recommendActions(sel);
   const lifeBad = [sel.life.water, sel.life.gas, sel.life.telecom].filter((s) => s.status !== "정상");
 
   return (
-    <div className="px-6 py-6 lg:px-10">
+    <div className="px-4 py-5 sm:px-6 lg:px-10">
       {/* 헤더 */}
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
@@ -40,7 +46,11 @@ export default function Dashboard() {
             {KPI.total}
             <span className="ml-1 text-xs font-normal text-muted">가구 모니터링</span>
           </div>
-          <div className="mt-0.5">2026-06-08 09:30 기준 · 자동 갱신</div>
+          <div className="mt-1 flex items-center justify-end gap-1.5">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-500" />
+            <span className="font-medium text-amber-700">에너지빈곤 의심 {ENERGY_COUNT}가구</span>
+          </div>
+          <div className="mt-0.5">{now || "실시간"} 기준 · 자동 갱신</div>
         </div>
       </div>
 
@@ -88,6 +98,7 @@ export default function Dashboard() {
               <button
                 key={h.id}
                 onClick={() => setSelId(h.id)}
+                aria-label={`${h.id}, ${h.dong}, ${h.grade}, 위험점수 ${h.riskScore}점`}
                 className={`flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-surface2 ${
                   selId === h.id ? "bg-brand/5" : ""
                 }`}

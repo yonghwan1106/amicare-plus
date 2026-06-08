@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import MobileNav from "@/components/MobileNav";
 
 export const metadata: Metadata = {
   title: "AMI-Care+ · 에너지 데이터 사회안전망 | SK이노베이션 AI 임팩트 솔루션 출품작",
   description:
     "전력 사용 패턴·생활 신호·AI 안부·상담을 결합해 1인 가구 고령자·장애인·에너지빈곤 가구의 위기를 조기 감지하고 현장 돌봄으로 연결하는 4-layer AI 사회안전망. SK이노베이션 「AI 임팩트 솔루션」 공모전 출품 프로토타입.",
+  openGraph: {
+    title: "AMI-Care+ · 에너지 데이터 사회안전망",
+    description:
+      "전력·생활·AI안부·상담 4-layer로 1인 가구 취약계층의 위기를 조기 감지하는 AI 사회안전망. SK이노베이션 AI 임팩트 솔루션 출품작.",
+    type: "website",
+    locale: "ko_KR",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -29,6 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </div>
         </div>
 
+        <MobileNav />
         <div className="flex">
           <Nav />
           <div className="flex min-w-0 flex-1 flex-col">

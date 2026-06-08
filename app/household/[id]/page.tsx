@@ -35,9 +35,10 @@ export default async function HouseholdPage({ params }: { params: Promise<{ id: 
   const actions = recommendActions(h);
   const gm = GRADE_META[h.grade];
   const life = [h.life.water, h.life.gas, h.life.telecom];
+  const confidence = h.grade === "정상" ? null : Math.min(96, 62 + bd.power);
 
   return (
-    <div className="px-6 py-6 lg:px-10">
+    <div className="px-4 py-5 sm:px-6 lg:px-10">
       {/* 헤더 */}
       <Link href="/" className="mb-4 inline-flex items-center gap-1 text-sm text-muted hover:text-ink">
         ← 대시보드
@@ -53,8 +54,13 @@ export default async function HouseholdPage({ params }: { params: Promise<{ id: 
               <GradeBadge grade={h.grade} />
               <TrendArrow value={h.trend} />
             </div>
-            <div className="mt-0.5 text-sm text-ink2">
-              {h.dong} · {h.type} · {h.age}세
+            <div className="mt-0.5 flex flex-wrap items-center gap-2 text-sm text-ink2">
+              <span>
+                {h.dong} · {h.type} · {h.age}세
+              </span>
+              {h.energyPoverty && (
+                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800">⚡ 에너지빈곤 의심</span>
+              )}
             </div>
             <div className="mt-0.5 text-xs text-muted">{gm.desc} · 위험점수 {h.riskScore}/100</div>
           </div>
@@ -69,7 +75,7 @@ export default async function HouseholdPage({ params }: { params: Promise<{ id: 
         <div className="space-y-5 lg:col-span-8">
           {/* Layer 1 전력 */}
           <Card className="p-5">
-            <LayerHead no={1} title="전력 사용 신호" tag="최근 30일" />
+            <LayerHead no={1} title="전력 사용 신호" tag={confidence ? `AI 이상탐지 신뢰도 ${confidence}%` : "최근 30일 · 정상 범위"} />
             <PowerTrend series={h.power.series} baseline={h.power.baseline} color={gm.color} />
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <span className="rounded-lg bg-surface2 px-2.5 py-1 text-xs text-ink2">

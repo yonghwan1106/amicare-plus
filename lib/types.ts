@@ -31,6 +31,7 @@ export interface Household {
   riskScore: number; // 0~100
   grade: Grade;
   trend: number; // 최근 위험점수 변화 (+상승/-하락)
+  energyPoverty: boolean; // 에너지빈곤 의심 (냉난방 중단·요금 부담 신호)
   // Layer 1 — 전력 사용 신호
   power: {
     series: PowerPoint[]; // 최근 30일

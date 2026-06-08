@@ -62,7 +62,7 @@ export default function CheckinPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-6 lg:px-10">
+    <div className="mx-auto max-w-2xl px-4 py-5 sm:px-6 lg:px-10">
       <Link href={`/household/${id}`} className="mb-4 inline-flex items-center gap-1 text-sm text-muted hover:text-ink">
         ← {id} 상세
       </Link>
