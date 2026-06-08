@@ -166,7 +166,7 @@ export default async function HouseholdPage({ params }: { params: Promise<{ id: 
             <div className="space-y-2.5">
               <ScoreBar label="전력" value={bd.power} max={40} color={GRADE_META["위기"].color} />
               <ScoreBar label="생활" value={bd.life} max={20} color={GRADE_META["주의"].color} />
-              <ScoreBar label="AI 안부" value={bd.checkin} max={25} color="#0b6bcb" />
+              <ScoreBar label="AI 안부" value={bd.checkin} max={25} color="#0e7490" />
               <ScoreBar label="상담" value={bd.consult} max={15} color={GRADE_META["정상"].color} />
             </div>
             <div className="mt-3 border-t border-line pt-3 text-xs text-muted">

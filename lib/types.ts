@@ -67,10 +67,10 @@ export const GRADE_META: Record<
   Grade,
   { color: string; bg: string; border: string; order: number; desc: string }
 > = {
-  위기: { color: "#E53935", bg: "#FDECEA", border: "#F5B7B1", order: 0, desc: "즉시 확인·개입 필요" },
-  주의: { color: "#FB8C00", bg: "#FFF3E0", border: "#FFCC80", order: 1, desc: "우선 안부 확인 권장" },
-  관심: { color: "#F9A825", bg: "#FFFDE7", border: "#FFE082", order: 2, desc: "변화 추적 관찰" },
-  정상: { color: "#43A047", bg: "#E8F5E9", border: "#A5D6A7", order: 3, desc: "안정 상태" },
+  위기: { color: "#DC2626", bg: "#FEF2F2", border: "#FECACA", order: 0, desc: "즉시 확인·개입 필요" },
+  주의: { color: "#EA580C", bg: "#FFF7ED", border: "#FED7AA", order: 1, desc: "우선 안부 확인 권장" },
+  관심: { color: "#CA8A04", bg: "#FEFCE8", border: "#FDE68A", order: 2, desc: "변화 추적 관찰" },
+  정상: { color: "#16A34A", bg: "#F0FDF4", border: "#BBF7D0", order: 3, desc: "안정 상태" },
 };
 
 export const ACTION_LABELS = ["전화 확인", "방문 요청", "복지서비스 연계"] as const;

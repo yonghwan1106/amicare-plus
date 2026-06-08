@@ -22,10 +22,8 @@ export default function About() {
     <div className="px-6 py-8 lg:px-10">
       {/* 히어로 */}
       <div className="mx-auto mb-10 max-w-4xl">
-        <span className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold text-brand">
-          SK이노베이션 AI 임팩트 솔루션 · Track B(사회문제) × Energy
-        </span>
-        <h1 className="mt-4 text-3xl font-bold leading-tight text-ink">
+        <span className="chip-award">◆ SK이노베이션 「AI 임팩트 솔루션」 공모전 출품작 · Track B × Energy</span>
+        <h1 className="mt-4 text-4xl font-extrabold leading-[1.15] tracking-tight text-ink">
           AMI-Care+ <span className="text-brand">에너지 데이터 사회안전망</span>
         </h1>
         <p className="mt-3 text-lg leading-relaxed text-ink2">

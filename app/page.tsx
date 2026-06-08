@@ -31,12 +31,16 @@ export default function Dashboard() {
       {/* 헤더 */}
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-ink">위험 우선순위 대시보드</h1>
-          <p className="mt-0.5 text-sm text-muted">전력 · 생활신호 · AI 안부 · 상담 4-layer 기반 실시간 위험 감지</p>
+          <div className="chip-award mb-2.5">◆ SK이노베이션 「AI 임팩트 솔루션」 공모전 출품작</div>
+          <h1 className="text-2xl font-extrabold tracking-tight text-ink">위험 우선순위 대시보드</h1>
+          <p className="mt-1 text-sm text-muted">전력 · 생활신호 · AI 안부 · 상담 4-layer 기반 실시간 위험 감지</p>
         </div>
-        <div className="text-right text-xs text-muted">
-          <div className="font-semibold text-ink2">모니터링 {KPI.total}가구</div>
-          <div>2026-06-08 09:30 기준 · 자동 갱신</div>
+        <div className="rounded-xl border border-line bg-surface px-4 py-2.5 text-right text-xs text-muted shadow-sm">
+          <div className="tnum text-xl font-bold text-ink">
+            {KPI.total}
+            <span className="ml-1 text-xs font-normal text-muted">가구 모니터링</span>
+          </div>
+          <div className="mt-0.5">2026-06-08 09:30 기준 · 자동 갱신</div>
         </div>
       </div>
 
@@ -45,7 +49,7 @@ export default function Dashboard() {
         {GRADES.map((g, i) => {
           const m = GRADE_META[g];
           return (
-            <Card key={g} className={`rise d${i + 1} p-4`}>
+            <Card key={g} className={`card-hover rise d${i + 1} p-4`}>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-muted">{g}</span>
                 <GradeDot grade={g} size={10} />

@@ -15,7 +15,7 @@ import type { PowerPoint } from "@/lib/types";
 export function PowerTrend({
   series,
   baseline,
-  color = "#0b6bcb",
+  color = "#0e7490",
   height = 210,
 }: {
   series: PowerPoint[];
