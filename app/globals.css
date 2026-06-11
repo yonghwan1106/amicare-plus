@@ -129,6 +129,29 @@ body::before {
     background: var(--color-brand2);
     transform: translateY(-1px);
   }
+  /* 메인 CTA — AI 케이스 리포트 진입 강조 (숨쉬는 글로우 링) */
+  .btn-cta {
+    background: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand2) 62%, #093a4d 100%);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 12px 18px;
+    border-radius: 13px;
+    box-shadow: 0 10px 26px -10px rgba(14, 116, 144, 0.65);
+    animation: cta-glow 2.6s ease-in-out infinite;
+  }
+  .btn-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px -10px rgba(14, 116, 144, 0.78);
+    animation: none;
+  }
+  .btn-cta .cta-arrow {
+    transition: transform 0.18s ease;
+  }
+  .btn-cta:hover .cta-arrow {
+    transform: translateX(3px);
+  }
+
   .btn-outline {
     background: var(--color-surface);
     border: 1px solid var(--color-line2);
@@ -170,6 +193,16 @@ body::before {
     height: 1px;
     background: var(--color-line);
     border: 0;
+  }
+}
+
+@keyframes cta-glow {
+  0%,
+  100% {
+    box-shadow: 0 10px 26px -10px rgba(14, 116, 144, 0.65), 0 0 0 0 rgba(14, 116, 144, 0.32);
+  }
+  50% {
+    box-shadow: 0 10px 26px -10px rgba(14, 116, 144, 0.65), 0 0 0 10px rgba(14, 116, 144, 0);
   }
 }
 
@@ -241,6 +274,9 @@ button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .rise {
+    animation: none;
+  }
+  .btn-cta {
     animation: none;
   }
   .pulse-path {

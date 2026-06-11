@@ -187,9 +187,14 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <Link href={`/household/${sel.id}`} className="btn btn-brand mt-5 w-full">
-            상세 분석 · AI 케이스 리포트 →
-          </Link>
+          <div className="mt-5">
+            <div className="mb-1.5 text-[11px] font-semibold text-brand">
+              ✦ AI가 위험 근거 → 권고 조치 → 확인 질문까지 한 화면에 정리합니다
+            </div>
+            <Link href={`/household/${sel.id}`} className="btn btn-cta w-full">
+              상세 분석 · AI 케이스 리포트 <span className="cta-arrow">→</span>
+            </Link>
+          </div>
         </Card>
       </div>
     </div>
