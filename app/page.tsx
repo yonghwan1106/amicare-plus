@@ -1,11 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { HOUSEHOLDS, KPI, PRIORITY } from "@/lib/households";
 import { GRADE_META, type Grade } from "@/lib/types";
 import { recommendActions } from "@/lib/risk";
 import { Card, GradeBadge, GradeDot, TrendArrow } from "@/components/ui";
 import { RiskMap } from "@/components/RiskMap";
+import { PulseLine } from "@/components/PulseLine";
 
 const GRADES: Grade[] = ["위기", "주의", "관심", "정상"];
 
@@ -24,10 +25,6 @@ const ENERGY_COUNT = HOUSEHOLDS.filter((h) => h.energyPoverty).length;
 
 export default function Dashboard() {
   const [selId, setSelId] = useState(PRIORITY[0]?.id ?? HOUSEHOLDS[0].id);
-  const [now, setNow] = useState("");
-  useEffect(() => {
-    setNow(new Date().toLocaleString("ko-KR", { dateStyle: "medium", timeStyle: "short" }));
-  }, []);
   const sel = HOUSEHOLDS.find((h) => h.id === selId) ?? HOUSEHOLDS[0];
   const actions = recommendActions(sel);
   const lifeBad = [sel.life.water, sel.life.gas, sel.life.telecom].filter((s) => s.status !== "정상");
@@ -39,10 +36,11 @@ export default function Dashboard() {
         <div>
           <div className="chip-award mb-2.5">◆ SK이노베이션 「AI 임팩트 솔루션」 공모전 출품작</div>
           <h1 className="text-2xl font-extrabold tracking-tight text-ink">위험 우선순위 대시보드</h1>
-          <p className="mt-1 text-sm text-muted">전력 · 생활신호 · AI 안부 · 상담 4-layer 기반 실시간 위험 감지</p>
+          <p className="thesis mt-1.5 text-[15px] text-ink2">에너지 사용 데이터는 가장 가까운 복지 데이터입니다.</p>
         </div>
-        <div className="rounded-xl border border-line bg-surface px-4 py-2.5 text-right text-xs text-muted shadow-sm">
-          <div className="tnum text-xl font-bold text-ink">
+        <div className="rounded-xl border border-line bg-surface px-4 py-3 text-right text-xs text-muted shadow-sm">
+          <PulseLine className="ml-auto h-8 w-48" />
+          <div className="tnum mt-1 text-xl font-bold text-ink">
             {KPI.total}
             <span className="ml-1 text-xs font-normal text-muted">가구 모니터링</span>
           </div>
@@ -50,7 +48,7 @@ export default function Dashboard() {
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-500" />
             <span className="font-medium text-amber-700">에너지빈곤 의심 {ENERGY_COUNT}가구</span>
           </div>
-          <div className="mt-0.5">{now || "실시간"} 기준 · 자동 갱신</div>
+          <div className="mt-0.5">전력·생활·AI 안부·상담 4-layer · 데모 기준 시점 데이터</div>
         </div>
       </div>
 
@@ -59,7 +57,11 @@ export default function Dashboard() {
         {GRADES.map((g, i) => {
           const m = GRADE_META[g];
           return (
-            <Card key={g} className={`card-hover rise d${i + 1} p-4`}>
+            <Card
+              key={g}
+              className={`card-hover card-accent rise d${i + 1} p-4`}
+              style={{ "--accent-c": m.color } as CSSProperties}
+            >
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-muted">{g}</span>
                 <GradeDot grade={g} size={10} />

@@ -30,9 +30,27 @@ export async function POST(req: Request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return NextResponse.json({ source: "rule", text: ruleText() });
 
+  const lifeBad = [h.life.water, h.life.gas, h.life.telecom].filter((s) => s.status !== "정상");
+  const facts = [
+    h.power.anomalies.length
+      ? `전력: ${h.power.anomalies.join(", ")} (평소 ${h.power.baseline}kWh/일, 마지막 사용 ${h.power.lastUsageHr}시간 전)`
+      : `전력: 평소 ${h.power.baseline}kWh/일 수준의 정상 사용 (마지막 사용 ${h.power.lastUsageHr}시간 전)`,
+    lifeBad.length
+      ? `생활: ${lifeBad.map((s) => `${s.label} ${s.status}(마지막 ${s.lastUsedHr}시간 전)`).join(", ")}`
+      : `생활: 수도·가스·통신 정상`,
+    h.checkin.responded
+      ? `AI 안부: ${h.checkin.delayHr}시간 전 응답함, 정서 분류 '${h.checkin.sentiment}'`
+      : `AI 안부: ${h.checkin.delayHr}시간째 무응답`,
+    h.consult.level === "없음"
+      ? `상담: 상담 이력 없음`
+      : `상담: ${h.consult.level} 단계${h.consult.tags.length ? `, 분류 태그 ${h.consult.tags.map((t) => `#${t}`).join(" ")}` : ""} — ${h.consult.lastNote}`,
+  ].join("\n- ");
+
   const prompt = `당신은 AMI-Care+ 위험점수 설명 도우미입니다. 복지 담당자에게 한 가구의 위험점수가 왜 ${h.riskScore}점(${h.grade} 등급)인지 2~3문장으로 쉽게 설명하세요.
 점수 기여(가중치): 전력 ${bd.power}/40, 생활 ${bd.life}/20, AI안부 ${bd.checkin}/25, 상담 ${bd.consult}/15.
-원칙: 의료·법률 단정/진단 금지, 이 점수는 사람 담당자의 판단을 돕는 보조 지표임을 분명히 하세요. 설명 문장만 출력하세요.`;
+관측 신호(이 목록이 유일한 사실 출처입니다):
+- ${facts}
+원칙: 반드시 위 '관측 신호'에 있는 사실만 사용하고, 목록에 없는 사실(예: 전력 차단, 상담 거부, 물품 부족 등)을 만들거나 신호를 다른 의미로 바꿔 말하지 마세요. '사용량 급감'을 '차단'으로, '응답함'을 '거부'로 표현하면 안 됩니다. 의료·법률 단정/진단 금지, 이 점수는 사람 담당자의 판단을 돕는 보조 지표임을 분명히 하세요. 설명 문장만 출력하세요.`;
 
   try {
     const r = await fetch("https://api.anthropic.com/v1/messages", {

@@ -1,8 +1,20 @@
 import React from "react";
 import { GRADE_META, type Grade } from "@/lib/types";
 
-export function Card({ className = "", children }: { className?: string; children: React.ReactNode }) {
-  return <div className={`card ${className}`}>{children}</div>;
+export function Card({
+  className = "",
+  style,
+  children,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={`card ${className}`} style={style}>
+      {children}
+    </div>
+  );
 }
 
 export function GradeBadge({ grade, className = "" }: { grade: Grade; className?: string }) {

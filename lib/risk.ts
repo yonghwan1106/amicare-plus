@@ -1,5 +1,5 @@
 // AMI-Care+ 위험점수 산출 — 4신호 가중합 (투명·설명가능, human-in-the-loop 보조)
-// 가중치: 전력 40 / 생활 20 / 안부 25 / 상담 15  (신청서 본문 기준)
+// 가중치: 전력 40 / 생활 20 / 안부 25 / 상담 15  (데모 기준 캘리브레이션 — PoC에서 라벨 축적 후 조정)
 import type { Household, Grade, RiskBreakdown } from "./types";
 
 export function gradeOf(score: number): Grade {

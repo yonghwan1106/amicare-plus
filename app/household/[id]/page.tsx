@@ -176,7 +176,7 @@ export default async function HouseholdPage({ params }: { params: Promise<{ id: 
               <ScoreBar label="상담" value={bd.consult} max={15} color={GRADE_META["정상"].color} />
             </div>
             <div className="mt-3 border-t border-line pt-3 text-xs text-muted">
-              합산 <b className="tnum text-ink">{h.riskScore}</b>/100 → <b style={{ color: gm.color }}>{h.grade}</b> · 가중치는 신청서 본문 기준(전력 40·생활 20·안부 25·상담 15)
+              합산 <b className="tnum text-ink">{h.riskScore}</b>/100 → <b style={{ color: gm.color }}>{h.grade}</b> · 데모 기준 가중치(전력 40·생활 20·안부 25·상담 15)
             </div>
             <div className="mt-3">
               <ExplainScore id={h.id} />

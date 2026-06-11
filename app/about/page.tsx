@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Card } from "@/components/ui";
+import { PulseLine } from "@/components/PulseLine";
 
 const LAYERS = [
   { no: 1, title: "전력 사용 신호", desc: "AMI·스마트미터 전력 패턴에서 장시간 무사용·급감·야간 이상을 탐지" },
@@ -26,6 +27,8 @@ export default function About() {
         <h1 className="mt-4 text-4xl font-extrabold leading-[1.15] tracking-tight text-ink">
           AMI-Care+ <span className="text-brand">에너지 데이터 사회안전망</span>
         </h1>
+        <p className="thesis mt-4 text-2xl leading-snug text-ink">“에너지 사용 데이터는 가장 가까운 복지 데이터입니다.”</p>
+        <PulseLine className="mt-3 h-10 w-full max-w-md" />
         <p className="mt-3 text-lg leading-relaxed text-ink2">
           전력 사용 패턴·생활 신호·AI 안부·상담을 결합해 1인 가구 고령자·장애인·에너지빈곤 가구의 고립·위기 징후를 조기에
           발견하고, 지자체·상담기관·마을 코디네이터의 현장 돌봄으로 연결하는 4-layer AI 사회안전망입니다.

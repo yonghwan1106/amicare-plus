@@ -38,6 +38,11 @@ export async function POST(req: Request) {
   } catch {
     return NextResponse.json({ error: "invalid body" }, { status: 400 });
   }
+  // 사용자 입력으로 [[FLAGS:...]] 위험태그를 스푸핑할 수 없도록 제거
+  messages = (messages ?? []).map((m) => ({
+    ...m,
+    content: String(m.content ?? "").replace(/\[\[/g, "(").slice(0, 2000),
+  }));
   const h: Household | undefined = getHousehold(id);
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return NextResponse.json(ruleReply(messages));
