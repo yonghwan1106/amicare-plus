@@ -30,6 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
         />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossOrigin="" />
       </head>
       <body className="font-sans antialiased">
         {/* 글로벌 출품작 리본 */}

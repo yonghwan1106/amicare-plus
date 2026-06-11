@@ -5,7 +5,7 @@ import { HOUSEHOLDS, KPI, PRIORITY } from "@/lib/households";
 import { GRADE_META, type Grade } from "@/lib/types";
 import { recommendActions } from "@/lib/risk";
 import { Card, GradeBadge, GradeDot, TrendArrow } from "@/components/ui";
-import { RiskMap } from "@/components/RiskMap";
+import { GeoRiskMap } from "@/components/GeoRiskMap";
 import { PulseLine } from "@/components/PulseLine";
 
 const GRADES: Grade[] = ["위기", "주의", "관심", "정상"];
@@ -83,9 +83,10 @@ export default function Dashboard() {
         {/* 지역 위험 지도 */}
         <Card className="rise d2 p-4 lg:col-span-4">
           <h2 className="mb-3 font-bold text-ink">지역 위험 분포</h2>
-          <RiskMap households={HOUSEHOLDS} selectedId={selId} onSelect={setSelId} />
+          <GeoRiskMap households={HOUSEHOLDS} selectedId={selId} onSelect={setSelId} />
           <p className="mt-3 text-[11px] leading-relaxed text-muted">
-            점 하나가 한 가구입니다. 위험 등급이 높을수록 크고 진하게 표시됩니다. 점을 클릭하면 케이스 요약이 갱신됩니다.
+            지도 배경은 OpenStreetMap 실제 지도이며, 점 하나가 한 가구입니다(위치·행정동명은 합성 데이터의 가상
+            좌표). 위험 등급이 높을수록 크고 진하게 표시되고, 점을 클릭하면 케이스 요약이 갱신됩니다.
           </p>
         </Card>
 
